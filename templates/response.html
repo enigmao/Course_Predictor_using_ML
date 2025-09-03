@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Status</title>
+    <style>
+      /* 
+        Modern Inline CSS for the Response Page 
+      */
+
+      /* Google Font for consistency with the form page */
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+      /* Centering the content vertically and horizontally */
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f7f6; /* Matching light grey background */
+        color: #333;
+      }
+
+      /* The main card container */
+      .container {
+        text-align: center;
+        background-color: #ffffff;
+        padding: 40px 50px;
+        border-radius: 15px; /* Matching corner radius */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-top: 5px solid #3498db; /* A blue top border for a professional look */
+        max-width: 90%;
+        width: 600px;
+      }
+      
+      /* Styling for the main header */
+      .container h1 {
+        color: #2c3e50; /* Dark, professional blue */
+        font-weight: 600;
+        margin: 0 0 10px 0;
+      }
+
+      /* Styling for the descriptive text */
+      .container p {
+        color: #7f8c8d; /* Muted grey */
+        margin-bottom: 25px;
+      }
+
+      /* Styling for the box that will display the fetched status */
+      .status-display-box {
+        background-color: #ecf0f1; /* A light, neutral background */
+        border-radius: 8px;
+        padding: 20px;
+      }
+
+      /* The text that shows the actual status from the URL */
+      #status-message {
+        font-size: 2em; /* Large and easy to read */
+        font-weight: 600;
+        color: #3498db; /* Bright, friendly blue */
+        margin: 0;
+        text-transform: capitalize; /* Automatically capitalizes the first letter, e.g., "complete" -> "Complete" */
+      }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Submission Confirmed</h1>
+        <p>Your form has been processed. The resulting status is:</p>
+        
+        <div class="status-display-box">
+            <!-- This is where the JavaScript will place the fetched text -->
+           <h2 id="status-message">{{ status }}</h2>
+        </div>
+    </div>
+
+</body>
+</html>

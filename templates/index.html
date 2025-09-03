@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Health Check</title>
+<style>
+  /* 
+    Modern Inline CSS for the Questionnaire UI 
+  */
+
+  /* Google Font for a clean, modern look */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+  /* General body styling for centering and background */
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6; /* A very light grey background */
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+  }
+
+  /* The main container for the form, styled like a card */
+  .form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px; /* Softer, more modern corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    width: 100%;
+  }
+
+  /* Styling for the header section of the form */
+  .form-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .form-header h1 {
+    color: #2c3e50; /* A dark, professional blue */
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .form-header p {
+    color: #7f8c8d; /* A muted grey for the subtitle */
+    font-size: 1rem;
+  }
+  
+  /* Styling for each group of questions */
+  .question-group {
+    margin-bottom: 30px;
+  }
+  .question-group h2 {
+    font-size: 1.3rem;
+    color: #3498db; /* A bright, friendly blue */
+    border-bottom: 2px solid #ecf0f1; /* Light underline */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  /* Styling for each individual question row */
+  .question {
+    display: flex; /* Using Flexbox to align the checkbox and text */
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  /* --- Custom Checkbox Styling --- */
+  .question label {
+    position: relative;
+    cursor: pointer;
+    padding-left: 35px; /* Make space for the custom checkbox */
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  /* Hide the default checkbox */
+  .question input[type="checkbox"] {
+    display: none;
+  }
+
+  /* Create the custom checkbox box */
+  .question label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #bdc3c7; /* Light grey border */
+    border-radius: 5px;
+    transition: all 0.2s ease;
+  }
+
+  /* Create the checkmark (hidden by default) */
+  .question label::after {
+    content: '✔';
+    position: absolute;
+    left: 4px;
+    top: -1px;
+    font-size: 18px;
+    color: #ffffff;
+    opacity: 0; /* Hide the checkmark */
+    transition: opacity 0.2s ease;
+  }
+
+  /* Style changes when the checkbox is checked */
+  .question input[type="checkbox"]:checked + label::before {
+    background-color: #3498db; /* Blue background on check */
+    border-color: #3498db;
+  }
+  
+  .question input[type="checkbox"]:checked + label::after {
+    opacity: 1; /* Show the checkmark */
+  }
+
+  /* Styling for the submit button */
+  .submit-btn {
+    background-image: linear-gradient(to right, #3498db, #2980b9); /* A nice gradient */
+    color: white;
+    padding: 15px 20px;
+    margin: 20px 0 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  .submit-btn:hover {
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4); /* Add a glow effect on hover */
+    transform: translateY(-2px); /* Lift the button slightly */
+  }
+
+  /* Make the form responsive on smaller screens */
+  @media (max-width: 600px) {
+    body {
+      padding: 10px;
+    }
+    .form-container {
+      padding: 20px;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  
+  <div class="form-header">
+    <h1>Credit Health Check</h1>
+    <p>Answer a few questions to understand your credit situation.</p>
+  </div>
+
+  <form id="creditForm" action="/predict" method="POST">
+
+      <!-- Added Name & Email -->
+    <div class="question-group">
+    <div class="question" style="flex-direction: row; gap: 20px; width: 100%;">
+    <input type="text" id="name" name="name" placeholder="Your Name"
+           style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px; box-shadow: inset 1px 1px 5px rgba(0,0,0,0.1);" required>
+    <input type="email" id="email" name="email" placeholder="Your Email"
+           style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px; box-shadow: inset 1px 1px 5px rgba(0,0,0,0.1);" required>
+    </div>
+    </div>
+    
+    <div class="question-group">
+      <h2>Part 1: Foundational Inquiries</h2>
+      <div class="question">
+        <input type="checkbox" id="q1" name="q1">
+        <label for="q1">Have you ever been alerted about a data breach involving your personal information?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q2" name="q2">
+        <label for="q2">Do you have reason to believe fraudulent credit accounts were opened in your name?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q3" name="q3">
+        <label for="q3">Have you previously discovered unrecognizable accounts on your credit report?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q4" name="q4">
+        <label for="q4">Are you currently receiving collection notices for debts that are not yours?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q5" name="q5">
+        <label for="q5">Have you found credit bureaus unresponsive when trying to correct errors?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q6" name="q6">
+        <label for="q6">Has a bureau "verified" an account that you know to be fraudulent?</label>
+      </div>
+    </div>
+
+    <div class="question-group">
+      <h2>Part 2: Credit Health Assessment</h2>
+      <div class="question">
+        <input type="checkbox" id="q7" name="q7">
+        <label for="q7">Did you find any suspicious activity during your last credit report review?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q8" name="q8">
+        <label for="q8">Were you ever denied credit because of what you believe is false information?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q9" name="q9">
+        <label for="q9">Has your credit score recently dropped without a clear reason?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q10" name="q10">
+        <label for="q10">Have inaccuracies on your credit report blocked you from a loan or mortgage?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q11" name="q11">
+        <label for="q11">Have you reviewed your full credit report within the past year?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q12" name="q12">
+        <label for="q12">Are you currently in an active dispute with Experian, Equifax, or TransUnion?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q13" name="q13">
+        <label for="q13">Have you ever had to place a fraud alert or credit freeze on your file?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q14" name="q14">
+        <label for="q14">Have you filed a complaint regarding your credit with the CFPB?</label>
+      </div>
+    </div>
+
+    <div class="question-group">
+      <h2>Part 3: Readiness and Awareness</h2>
+      <div class="question">
+        <input type="checkbox" id="q15" name="q15">
+        <label for="q15">Are you aware you can demand fraudulent account deletion within 4 days with proof?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q16" name="q16">
+        <label for="q16">Have you suffered financial or emotional stress from credit reporting errors?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q17" name="q17">
+        <label for="q17">Are you prepared to act now to clear fraudulent accounts from your credit?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q18" name="q18">
+        <label for="q18">Would you value learning a step-by-step method to effectively dispute inaccuracies?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q19" name="q19">
+        <label for="q19">Do you aim to restore full control over your credit within two months?</label>
+      </div>
+      <div class="question">
+        <input type="checkbox" id="q20" name="q20">
+        <label for="q20">Are you familiar with your rights under the Fair Credit Reporting Act (FCRA)?</label>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit & See Your Result</button>
+
+  </form>
+</div>
+
+</body>
+</html>

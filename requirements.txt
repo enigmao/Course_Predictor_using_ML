@@ -1,0 +1,7 @@
+flask
+joblib
+numpy
+gunicorn
+werkzeug
+gspread
+oauth2client
